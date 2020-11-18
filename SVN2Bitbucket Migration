@@ -1,0 +1,27 @@
+*This procedure is for SVN to Bitbucket migration*
+
+Pre-requisite:
+
+1.	Generate Personal Access Token in Global BB and make a note of it
+2.	Create a new project and repo in Global BB
+
+*Please execute the below commands:* 
+
+java -jar svn-migration-scripts.jar verify
+
+java -jar svn-migration-scripts.jar authors http://IPAdressofSVN/svn/10886_VO-HUB UserID Password > 10886Vo.txt
+
+git svn clone --stdlayout --authors-file=10886Vo.txt http://IPAdressofSVN/svn/10886_VO-HUB/ 10886VoRepo
+
+cd 10886VoRepo
+
+git show-ref
+
+git remote add origin “https://bitbucketURL/scm/ap10886/10886_vo-hub.git"
+
+git push origin refs/remotes/*:refs/heads/*
+
+Note: 
+Replace all 10886Vo with your project ID (Ex:10513)
+Replace all 10886_VO-HUB with SVN project name(Ex: 10513_Kouren)
+While executing the last command, give the username and password(Bitbucket PAT)
